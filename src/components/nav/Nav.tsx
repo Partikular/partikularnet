@@ -14,13 +14,15 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
 `;
 
 const Logo = styled.img`
   height: 60px;
   width: 60px;
-  margin-top: 60px;
+  top: 60px;
   align-self: center;
+  position: absolute;
 `;
 
 export default Nav;

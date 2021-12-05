@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Nav from "./components/nav/Nav";
 import styled from "styled-components";
@@ -6,6 +6,24 @@ import { AnimatePresence, motion } from "framer-motion";
 
 export default function App() {
   const location = useLocation();
+  const pathname = location.pathname;
+
+  useEffect(() => {
+    let path;
+    if (pathname === "/") {
+      path = "Aktivitetscentrum";
+    } else if (pathname === "/artikelvyn") {
+      path = "Artikelvyn";
+    } else if (pathname === "/statistik") {
+      path = "Statistikvyn";
+    } else if (pathname === "/meddelanden") {
+      path = "Chattvyn";
+    } else if (pathname === "/installningar") {
+      path = "Inställningar";
+    }
+
+    document.title = `${path} | Partikularnet`;
+  }, [location]);
 
   return (
     <AppWrapper>
@@ -38,7 +56,11 @@ const RoutesWrapper = styled.div`
   margin: 20px 20px 20px 0;
   border-radius: 30px;
   padding: 36px 60px;
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const PageTitle = styled.h1`

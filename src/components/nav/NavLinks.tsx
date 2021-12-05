@@ -71,7 +71,6 @@ const NavLink: React.FC<NavLinkProps> = ({ icon, path, active }) => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    console.log(path);
     navigate(path);
   };
 
