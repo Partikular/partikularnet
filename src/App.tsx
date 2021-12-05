@@ -23,7 +23,7 @@ export default function App() {
     }
 
     document.title = `${path} | Partikularnet`;
-  }, [location]);
+  }, [pathname]);
 
   return (
     <AppWrapper>
