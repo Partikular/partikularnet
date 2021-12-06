@@ -34,6 +34,7 @@ const Pages = () => {
     if (!user) {
       navigateToDefault("/");
     }
+    // eslint-disable-next-line
   }, [pathname]);
 
   return (
