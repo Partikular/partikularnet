@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import NavLinks from "./NavLinks";
+import { SignOutAlt as Logout } from "@styled-icons/fa-solid/SignOutAlt";
+import { auth } from "../../lib/firebase";
 
 const Nav = () => {
   return (
     <Wrapper>
       <Logo src="/assets/logo.png" alt="" />
       <NavLinks />
+      <LogoutWrapper onClick={() => auth.signOut()}>
+        <Logout size={40} />
+      </LogoutWrapper>
     </Wrapper>
   );
 };
@@ -15,6 +20,18 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   position: relative;
+`;
+
+const LogoutWrapper = styled.div`
+  cursor: pointer;
+  transition: all ease-in-out 0.1s;
+  position: absolute;
+  bottom: 60px;
+  align-self: center;
+  color: #18a18950;
+  &:hover {
+    color: #18a189;
+  }
 `;
 
 const Logo = styled.img`
