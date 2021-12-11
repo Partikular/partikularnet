@@ -33,6 +33,7 @@ const Pages = () => {
   useEffect(() => {
     if (!user) {
       navigateToDefault("/");
+      document.title = "Login to Partikularnet";
     }
     // eslint-disable-next-line
   }, [pathname]);
