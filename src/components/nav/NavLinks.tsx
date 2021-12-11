@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import { useLocation } from "react-router-dom";
 
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 import { Dashboard } from "@styled-icons/boxicons-solid/Dashboard";
 import { Article } from "@styled-icons/material-rounded/Article";
 import { MessageSquareDetail as Chat } from "@styled-icons/boxicons-solid/MessageSquareDetail";
 import { Settings } from "@styled-icons/fluentui-system-filled/Settings";
 import { InsertChart as Stats } from "@styled-icons/material-rounded/InsertChart";
+import NavLink from "./NavLink";
 
 const NavLinks = () => {
   const currentPath = useLocation().pathname;
@@ -57,50 +58,6 @@ const LinksWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   cursor: pointer;
-`;
-
-interface NavLinkProps {
-  icon: React.ReactElement;
-  path: string;
-  active: boolean;
-}
-
-const NavLink: React.FC<NavLinkProps> = ({ icon, path, active }) => {
-  const [isHovering, setIsHovering] = useState(false);
-
-  const navigate = useNavigate();
-
-  const handleNavigate = () => {
-    navigate(path);
-  };
-
-  return (
-    <IconWrapper
-      active={active}
-      hover={isHovering}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
-      onClick={() => handleNavigate()}
-    >
-      {icon}
-    </IconWrapper>
-  );
-};
-
-const IconWrapper = styled.div<{ active: boolean; hover: boolean }>`
-  ${({ active, hover }) => css`
-    transition: ease-in-out all 0.1s;
-    padding: 10px;
-    color: ${active ? "white" : "#18a189"};
-    background: ${active ? "#18a189" : "white"};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px;
-    border-radius: 20px;
-    opacity: ${active || hover ? 1 : 0.4};
-    box-shadow: ${active && "0 5px 20px 1px #18a18850"};
-  `}
 `;
 
 export default NavLinks;
