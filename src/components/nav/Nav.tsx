@@ -2,15 +2,24 @@ import styled from "styled-components";
 import NavLinks from "./NavLinks";
 import { SignOutAlt as Logout } from "@styled-icons/fa-solid/SignOutAlt";
 import { auth } from "../../lib/firebase";
+import toast from "react-hot-toast";
 
 import LinkBackground from "./NavLinkBackground";
 
 const Nav = () => {
+  const handleLogout = () => {
+    auth.signOut();
+    toast.success("Du är nu utloggad. Vi ses igen!", {
+      icon: "🙈",
+      style: { fontWeight: "600" },
+    });
+  };
+
   return (
     <Wrapper>
       <Logo src="/assets/logo.png" alt="" />
       <NavLinks />
-      <LogoutWrapper onClick={() => auth.signOut()}>
+      <LogoutWrapper onClick={handleLogout}>
         <Logout size={40} />
       </LogoutWrapper>
       <LinkBackground />
