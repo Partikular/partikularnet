@@ -31,6 +31,7 @@ const LogoutWrapper = styled.div`
   bottom: 60px;
   align-self: center;
   color: #18a18950;
+  cursor: pointer;
   &:hover {
     color: #18a189;
   }

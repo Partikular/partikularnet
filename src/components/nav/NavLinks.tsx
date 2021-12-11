@@ -57,7 +57,6 @@ const LinksWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  cursor: pointer;
 `;
 
 export default NavLinks;
