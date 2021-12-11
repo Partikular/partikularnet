@@ -35,8 +35,7 @@ const Pages = () => {
       navigateToDefault("/");
       document.title = "Login to Partikularnet";
     }
-    // eslint-disable-next-line
-  }, [pathname]);
+  }, [pathname, navigateToDefault, user]);
 
   return (
     <>
