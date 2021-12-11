@@ -7,8 +7,8 @@ import { setLinkBackgroundPosition } from "../../store/actionCreators";
 
 interface NavLinkProps {
   icon: React.ReactElement;
-  path: string;
-  active: boolean;
+  path?: string;
+  active?: boolean;
 }
 
 const NavLink: React.FC<NavLinkProps> = ({ icon, path, active }) => {
@@ -41,16 +41,17 @@ const NavLink: React.FC<NavLinkProps> = ({ icon, path, active }) => {
       hover={isHovering}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
-      onClick={() => navigate(path)}
+      onClick={() => path && navigate(path)}
     >
       {icon}
     </IconWrapper>
   );
 };
 
-const IconWrapper = styled.div<{ active: boolean; hover: boolean }>`
+const IconWrapper = styled.div<{ active?: boolean; hover: boolean }>`
   ${({ active, hover }) => css`
-    transition: ease-in-out all 0.1s;
+    transition: ease-in all 0.1s;
+    transition-delay: ${active ? "0.25s" : 0};
     padding: 10px;
     color: ${active ? "white" : "#18a189"};
     display: flex;
