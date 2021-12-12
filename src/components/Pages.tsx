@@ -3,6 +3,8 @@ import { useContext, useEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router";
 import styled from "styled-components";
 import { UserContext } from "../lib/context";
+import { PageTitle } from "./CommonStyledComponents";
+import Dashboard from "./dashboard/Dashboard";
 import LoginPage from "./LoginPage";
 import Nav from "./nav/Nav";
 
@@ -83,12 +85,6 @@ const RoutesWrapper = styled.div`
   }
 `;
 
-const PageTitle = styled.h1`
-  padding: 0;
-  margin-top: 14px;
-  color: #18a189;
-`;
-
 export const pageTransitions = {
   initial: {
     x: -100,
@@ -154,19 +150,6 @@ function StatsView() {
       variants={pageTransitions}
     >
       <PageTitle>Statistikvyn</PageTitle>
-    </motion.div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <motion.div
-      initial="initial"
-      exit="out"
-      animate="in"
-      variants={pageTransitions}
-    >
-      <PageTitle>Aktivitetscentrum</PageTitle>
     </motion.div>
   );
 }
