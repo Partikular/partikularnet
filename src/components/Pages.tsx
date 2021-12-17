@@ -14,7 +14,7 @@ const Pages = () => {
   const pathname = location.pathname;
   const navigateToDefault = useNavigate();
 
-  const { user } = useContext(UserContext);
+  const { user, uid, userData } = useContext(UserContext);
 
   useEffect(() => {
     let path;
@@ -58,7 +58,7 @@ const Pages = () => {
                 </Routes>
               </AnimatePresence>
             </div>
-            <ActivityMenu user={user} />
+            <ActivityMenu user={user} uid={uid} userData={userData} />
           </RoutesWrapper>
         </AppWrapper>
       ) : (

@@ -6,9 +6,12 @@ import ProfileCard from "./ProfileCard";
 
 interface ActivityMenuProps {
   user: any;
+  uid: string;
+  // TODO: set better userData type
+  userData: any;
 }
 
-const ActivityMenu: React.FC<ActivityMenuProps> = ({ user }) => {
+const ActivityMenu: React.FC<ActivityMenuProps> = ({ user, uid, userData }) => {
   const [isOpen, setIsOpen] = useState(true);
   console.log(user);
   return (
@@ -29,7 +32,7 @@ const ActivityMenu: React.FC<ActivityMenuProps> = ({ user }) => {
         <ProfileCard
           profileImgSrc={user.photoURL}
           username={user.displayName}
-          role={user.role}
+          role={userData.role}
         />
       </ContentContainer>
     </Wrapper>

@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 export const useUserData = () => {
   const [user] = useAuthState(getAuth());
   const [uid, setUid] = useState(null);
+  // TODO: set better type for useData
+  const [userData, setUserData] = useState<any>(null);
 
   useEffect(() => {
     let unsubscribe;
@@ -13,6 +15,7 @@ export const useUserData = () => {
     if (user) {
       const ref = db.collection("users").doc(user.uid);
       unsubscribe = ref.onSnapshot((doc) => {
+        setUserData(doc.data() || null);
         setUid(doc.data()?.uid);
       });
     } else {
@@ -20,5 +23,5 @@ export const useUserData = () => {
     }
     return unsubscribe;
   }, [user]);
-  return { user, uid };
+  return { user, uid, userData };
 };
