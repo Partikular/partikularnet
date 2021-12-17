@@ -55,6 +55,7 @@ const Wrapper = styled.div<{ isOpen: boolean }>`
 
 const Button = styled.div<{ isOpen: boolean }>`
   ${({ isOpen }) => css`
+    cursor: pointer;
     transition: ease-in-out all 0.3s;
     position: absolute;
     height: 50px;
