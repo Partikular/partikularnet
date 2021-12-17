@@ -1,13 +1,10 @@
 import { auth, db, googleAuthProvider } from "../lib/firebase";
 import { User } from "@firebase/auth-types";
-import { useState } from "react";
 import toast from "react-hot-toast";
 import styled from "styled-components";
 import Particles from "react-tsparticles";
 
 const LoginPage = () => {
-  const [newUser, setNewUser] = useState<any>({});
-
   const signInWithGoogle = async () => {
     try {
       const res = await auth.signInWithPopup(googleAuthProvider);
@@ -28,13 +25,15 @@ const LoginPage = () => {
         .get();
 
       if (query.docs.length === 0 && user) {
-        setNewUser({
+        const newUser = {
           uid: user.uid,
           email: user.email,
           name: user.displayName,
           createdAt: Date.parse(user.metadata.creationTime!),
-        });
-        await db.collection("users").doc(user.uid).set(newUser!);
+          role: "Skribent",
+        };
+
+        await db.collection("users").doc(user.uid).set(newUser);
       }
     } catch (err) {
       toast.error("Försök igen med ditt organisationsmail!", {

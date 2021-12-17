@@ -13,7 +13,6 @@ interface ActivityMenuProps {
 
 const ActivityMenu: React.FC<ActivityMenuProps> = ({ user, uid, userData }) => {
   const [isOpen, setIsOpen] = useState(true);
-  console.log(user);
   return (
     <Wrapper isOpen={isOpen}>
       <Button
