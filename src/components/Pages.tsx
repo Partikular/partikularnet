@@ -7,6 +7,7 @@ import { PageTitle } from "./CommonStyledComponents";
 import Dashboard from "./dashboard/Dashboard";
 import LoginPage from "./LoginPage";
 import Nav from "./nav/Nav";
+import ActivityMenu from "./ActivityMenu";
 
 const Pages = () => {
   const location = useLocation();
@@ -46,15 +47,18 @@ const Pages = () => {
           <Nav />
 
           <RoutesWrapper>
-            <AnimatePresence exitBeforeEnter>
-              <Routes location={location} key={location.pathname}>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/artikelvyn" element={<ArticleView />} />
-                <Route path="/statistik" element={<StatsView />} />
-                <Route path="/meddelanden" element={<Chat />} />
-                <Route path="/installningar" element={<Settings />} />
-              </Routes>
-            </AnimatePresence>
+            <div style={{ padding: "36px 60px" }}>
+              <AnimatePresence exitBeforeEnter>
+                <Routes location={location} key={location.pathname}>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/artikelvyn" element={<ArticleView />} />
+                  <Route path="/statistik" element={<StatsView />} />
+                  <Route path="/meddelanden" element={<Chat />} />
+                  <Route path="/installningar" element={<Settings />} />
+                </Routes>
+              </AnimatePresence>
+            </div>
+            <ActivityMenu user={user} />
           </RoutesWrapper>
         </AppWrapper>
       ) : (
@@ -74,12 +78,15 @@ const AppWrapper = styled.div`
 `;
 
 const RoutesWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto;
+  position: relative;
   background-color: #f2fcfb;
   margin: 20px 20px 20px 0;
   border-radius: 30px;
-  padding: 36px 60px;
   overflow-x: hidden;
   overflow-y: scroll;
+  z-index: 1;
   &::-webkit-scrollbar {
     display: none;
   }
