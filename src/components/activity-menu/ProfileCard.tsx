@@ -33,6 +33,7 @@ const Wrapper = styled.div`
   border: white solid 1px;
   border-radius: 30px;
   min-height: 190px;
+  text-align: center;
 `;
 
 const ProfileImgContainer = styled.div`
@@ -57,6 +58,7 @@ const ProfileInfo = styled.div`
 
 const Username = styled.div`
   font-size: 24px;
+  color: white;
 `;
 
 const Role = styled.div`
