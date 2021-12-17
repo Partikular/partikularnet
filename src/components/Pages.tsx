@@ -7,7 +7,7 @@ import { PageTitle } from "./CommonStyledComponents";
 import Dashboard from "./dashboard/Dashboard";
 import LoginPage from "./LoginPage";
 import Nav from "./nav/Nav";
-import ActivityMenu from "./ActivityMenu";
+import ActivityMenu from "./activity-menu/ActivityMenu";
 
 const Pages = () => {
   const location = useLocation();

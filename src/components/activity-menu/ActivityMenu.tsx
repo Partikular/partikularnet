@@ -2,13 +2,14 @@ import { useState } from "react";
 
 import styled, { css } from "styled-components";
 import { ChevronRight } from "@styled-icons/heroicons-outline/ChevronRight";
+import ProfileCard from "./ProfileCard";
 
 interface ActivityMenuProps {
   user: any;
 }
 
 const ActivityMenu: React.FC<ActivityMenuProps> = ({ user }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   console.log(user);
   return (
     <Wrapper isOpen={isOpen}>
@@ -24,6 +25,13 @@ const ActivityMenu: React.FC<ActivityMenuProps> = ({ user }) => {
           size={40}
         />
       </Button>
+      <ContentContainer>
+        <ProfileCard
+          profileImgSrc={user.photoURL}
+          username={user.displayName}
+          role={user.role}
+        />
+      </ContentContainer>
     </Wrapper>
   );
 };
@@ -33,7 +41,8 @@ const Wrapper = styled.div<{ isOpen: boolean }>`
     transition: ease-in-out all 0.3s;
     position: relative;
     height: 100%;
-    width: ${isOpen ? 350 : 0}px;
+    margin-right: ${isOpen ? 0 : -350}px;
+    width: 350px;
     background: #18a189;
     justify-self: right;
     z-index: 0;
@@ -58,6 +67,10 @@ const Button = styled.div<{ isOpen: boolean }>`
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
   `}
+`;
+
+const ContentContainer = styled.div`
+  padding: 30px;
 `;
 
 export default ActivityMenu;
