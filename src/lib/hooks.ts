@@ -15,10 +15,11 @@ export const useUserData = () => {
     if (user) {
       const ref = db.collection("users").doc(user.uid);
       unsubscribe = ref.onSnapshot((doc) => {
-        setUserData(doc.data() || null);
+        setUserData(doc.data());
         setUid(doc.data()?.uid);
       });
     } else {
+      setUserData(null);
       setUid(null);
     }
     return unsubscribe;

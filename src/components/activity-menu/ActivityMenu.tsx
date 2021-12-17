@@ -32,7 +32,7 @@ const ActivityMenu: React.FC<ActivityMenuProps> = ({ user, uid, userData }) => {
         <ProfileCard
           profileImgSrc={user.photoURL}
           username={user.displayName}
-          role={userData.role}
+          role={userData?.role}
         />
       </ContentContainer>
     </Wrapper>
