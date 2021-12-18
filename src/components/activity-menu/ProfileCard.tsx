@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Badges from "./Bagdes";
 
 interface ProfileCardProps {
   profileImgSrc: string;
@@ -20,6 +21,9 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         <Username> {username} </Username>
         <Role> {role} </Role>
       </ProfileInfo>
+      <div style={{ width: "100%" }}>
+        <Badges />
+      </div>
     </Wrapper>
   );
 };
