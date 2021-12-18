@@ -8,13 +8,37 @@ import Dashboard from "./dashboard/Dashboard";
 import LoginPage from "./LoginPage";
 import Nav from "./nav/Nav";
 import ActivityMenu from "./activity-menu/ActivityMenu";
+import Editor from "./editor/Editor";
 
 const Pages = () => {
   const location = useLocation();
   const pathname = location.pathname;
-  const navigateToDefault = useNavigate();
+  const navigate = useNavigate();
 
   const { user, uid, userData } = useContext(UserContext);
+
+  const routes = [
+    {
+      path: "/",
+      page: <Dashboard />,
+    },
+    {
+      path: "/artikelvyn",
+      page: <ArticleView />,
+    },
+    {
+      path: "/statistik",
+      page: <StatsView />,
+    },
+    {
+      path: "/meddelanden",
+      page: <Chat />,
+    },
+    {
+      path: "/installningar",
+      page: <Settings />,
+    },
+  ];
 
   useEffect(() => {
     let path;
@@ -30,40 +54,38 @@ const Pages = () => {
       path = "Inställningar";
     }
 
-    document.title = `${path} | Partikularnet`;
-  }, [pathname]);
-
-  useEffect(() => {
-    if (!user) {
-      navigateToDefault("/");
-      document.title = "Login to Partikularnet";
-    }
-  }, [pathname, navigateToDefault, user]);
+    document.title = path ? `${path} | Partikularnet` : "Partikularnet";
+  }, [pathname, user]);
 
   return (
     <>
       {user ? (
-        <AppWrapper>
-          <Nav />
-
-          <RoutesWrapper>
-            <div style={{ padding: "36px 60px" }}>
-              <AnimatePresence exitBeforeEnter>
-                <Routes location={location} key={location.pathname}>
-                  <Route path="/" element={<Dashboard />} />
-                  <Route path="/artikelvyn" element={<ArticleView />} />
-                  <Route path="/statistik" element={<StatsView />} />
-                  <Route path="/meddelanden" element={<Chat />} />
-                  <Route path="/installningar" element={<Settings />} />
-                </Routes>
-              </AnimatePresence>
-            </div>
-            <ActivityMenu user={user} uid={uid} userData={userData} />
-          </RoutesWrapper>
-        </AppWrapper>
+        <>
+          {pathname === "/editor" ? (
+            <Routes location={location} key={location.pathname}>
+              <Route path="/editor" element={<Editor />} />
+            </Routes>
+          ) : (
+            <AppWrapper>
+              <Nav />
+              <RoutesWrapper>
+                <div style={{ padding: "36px 60px" }}>
+                  <AnimatePresence exitBeforeEnter>
+                    <Routes location={location} key={location.pathname}>
+                      {routes.map((route) => (
+                        <Route path={route.path} element={route.page} />
+                      ))}
+                    </Routes>
+                  </AnimatePresence>
+                </div>
+                <ActivityMenu user={user} uid={uid} userData={userData} />
+              </RoutesWrapper>
+            </AppWrapper>
+          )}
+        </>
       ) : (
         <Routes>
-          <Route path="/" element={<LoginPage />} />
+          <Route path="*" element={<LoginPage />} />
         </Routes>
       )}
     </>
@@ -136,6 +158,8 @@ function Settings() {
 }
 
 function ArticleView() {
+  const navigate = useNavigate();
+
   return (
     <motion.div
       initial="initial"
@@ -144,6 +168,7 @@ function ArticleView() {
       variants={pageTransitions}
     >
       <PageTitle>Artikelvyn</PageTitle>
+      <button onClick={() => navigate("/editor")}>Create article</button>
     </motion.div>
   );
 }
