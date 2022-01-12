@@ -3,6 +3,7 @@ import NavLinks from "./NavLinks";
 import { SignOutAlt as Logout } from "@styled-icons/fa-solid/SignOutAlt";
 import { auth } from "../../lib/firebase";
 import toast from "react-hot-toast";
+import { Logo } from "../common";
 
 import LinkBackground from "./NavLinkBackground";
 
@@ -17,7 +18,11 @@ const Nav = () => {
 
   return (
     <Wrapper>
-      <Logo src="/assets/logo.png" alt="" />
+      <Logo
+        style={{ top: "60px", alignSelf: "center", position: "absolute" }}
+        src="/assets/logo.png"
+        alt=""
+      />
       <NavLinks />
       <LogoutWrapper onClick={handleLogout}>
         <Logout size={40} />
@@ -44,14 +49,6 @@ const LogoutWrapper = styled.div`
   &:hover {
     color: #18a189;
   }
-`;
-
-const Logo = styled.img`
-  height: 60px;
-  width: 60px;
-  top: 60px;
-  align-self: center;
-  position: absolute;
 `;
 
 export default Nav;

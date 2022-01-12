@@ -52,9 +52,13 @@ const Pages = () => {
       path = "Chattvyn";
     } else if (pathname === "/installningar") {
       path = "Inställningar";
+    } else if (pathname === "/editor") {
+      path = "Artikelredigeraren";
     }
 
-    document.title = path ? `${path} | Partikularnet` : "Partikularnet";
+    document.title = user
+      ? `${path} | Partikularnet`
+      : "Logga in på Partikularnet";
   }, [pathname, user]);
 
   return (
