@@ -12,6 +12,7 @@ import NavLink from "./NavLink";
 
 const NavLinks = () => {
   const currentPath = useLocation().pathname;
+  const isInEditor = currentPath === "/editor";
 
   const links = [
     {
