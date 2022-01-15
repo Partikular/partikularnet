@@ -5,29 +5,43 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 
-import { createStore, applyMiddleware, Store } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import reduxThunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-import reducer from "./store/reducer";
+import { rootReducer } from "./store";
+import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+import {
+  createFirestoreInstance,
+  getFirestore,
+  reduxFirestore,
+} from "redux-firestore";
+import { firebase } from "./lib/firebase";
 
-const middleware = [reduxThunk];
+const middleware = [reduxThunk.withExtraArgument({ getFirestore })];
 
-const store: Store<
-  NavLinkButtonBackgroundPosState,
-  NavLinkButtonBackgroundPosAction
-> & {
-  dispatch: DispatchType;
-} = createStore(reducer, composeWithDevTools(applyMiddleware(...middleware)));
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(...middleware), reduxFirestore(firebase))
+);
+
+const rrfProps = {
+  firebase,
+  config: {},
+  dispatch: store.dispatch,
+  createFirestoreInstance,
+};
 
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </React.StrictMode>
+    <ReactReduxFirebaseProvider {...rrfProps}>
+      <React.StrictMode>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </React.StrictMode>
+    </ReactReduxFirebaseProvider>
   </Provider>,
   document.getElementById("root")
 );

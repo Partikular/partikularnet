@@ -7,10 +7,10 @@ const initialState: NavLinkButtonBackgroundPosState = {
   },
 };
 
-const reducer = (
+export default function navButton(
   state: NavLinkButtonBackgroundPosState = initialState,
   action: NavLinkButtonBackgroundPosAction
-): NavLinkButtonBackgroundPosState => {
+): NavLinkButtonBackgroundPosState {
   switch (action.type) {
     case actionTypes.SET_NAV_LINK_BUTTON_BACKGROUND_POS:
       return {
@@ -19,8 +19,4 @@ const reducer = (
       };
   }
   return state;
-};
-
-export type RootState = ReturnType<typeof reducer>;
-
-export default reducer;
+}

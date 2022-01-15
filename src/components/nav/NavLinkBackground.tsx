@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
-import { RootState } from "../../store/reducer";
+import { RootState } from "../../store";
 
 const LinkBackground = () => {
   const { x, y } = useSelector(
-    (state: RootState) => state.linkButtonBackgroundPos
+    (state: RootState) => state.navButton.linkButtonBackgroundPos
   );
+
   return <Background x={x} y={y} />;
 };
 

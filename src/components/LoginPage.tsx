@@ -3,15 +3,25 @@ import { User } from "@firebase/auth-types";
 import toast from "react-hot-toast";
 import styled from "styled-components";
 import Particles from "react-tsparticles";
+import { isEmpty, isLoaded, useFirebase } from "react-redux-firebase";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 const LoginPage = () => {
+  const firebase = useFirebase();
+  const auth = useSelector((state: RootState) => state.firebase.auth);
+  /* 
+  function signInWithGoogle() {
+    return firebase.login({ provider: "google", type: "popup" });
+  } */
+
   const signInWithGoogle = async () => {
     try {
-      const res = await auth.signInWithPopup(googleAuthProvider);
+      const res = await firebase.login({ provider: "google", type: "popup" });
       if (
         !res.user?.email?.endsWith("@partikular.se", res.user?.email?.length)
       ) {
-        auth.signOut();
+        firebase.logout();
         throw Error;
       }
       const user = res.user as User;
@@ -46,76 +56,82 @@ const LoginPage = () => {
 
   return (
     <>
-      <Logo src="/assets/logo.png" alt="" />
-      <Wrapper>
-        <LoginTitle>Paritkularnet</LoginTitle>
-        <GoogleSignIn onClick={signInWithGoogle}>
-          {" "}
-          <img
-            src="/assets/google_logo.png"
-            style={{ height: 40, width: 40, marginRight: 14 }}
-            alt=""
-          />{" "}
-          Logga in med Google{" "}
-        </GoogleSignIn>
-      </Wrapper>
-      <Particles
-        style={{ zIndex: -1 }}
-        id="tsparticles"
-        options={{
-          background: {
-            color: {
-              value: "#000000",
-            },
-          },
-          fpsLimit: 60,
-          particles: {
-            color: {
-              value: "#ffffff",
-            },
-            move: {
-              direction: "none",
-              enable: true,
-              outMode: "out",
-              random: true,
-              speed: 1,
-              straight: false,
-              attract: {
-                rotateX: 600,
-                rotateY: 600,
+      {!isLoaded(auth) ? (
+        <span>Laddar...</span>
+      ) : (
+        <>
+          <Logo src="/assets/logo.png" alt="" />
+          <Wrapper>
+            <LoginTitle>Paritkularnet</LoginTitle>
+            <GoogleSignIn onClick={signInWithGoogle}>
+              {" "}
+              <img
+                src="/assets/google_logo.png"
+                style={{ height: 40, width: 40, marginRight: 14 }}
+                alt=""
+              />{" "}
+              Logga in med Google{" "}
+            </GoogleSignIn>
+          </Wrapper>
+          <Particles
+            style={{ zIndex: -1 }}
+            id="tsparticles"
+            options={{
+              background: {
+                color: {
+                  value: "#000000",
+                },
               },
-            },
-            number: {
-              density: {
-                enable: true,
-                value_area: 800,
+              fpsLimit: 60,
+              particles: {
+                color: {
+                  value: "#ffffff",
+                },
+                move: {
+                  direction: "none",
+                  enable: true,
+                  outMode: "out",
+                  random: true,
+                  speed: 1,
+                  straight: false,
+                  attract: {
+                    rotateX: 600,
+                    rotateY: 600,
+                  },
+                },
+                number: {
+                  density: {
+                    enable: true,
+                    value_area: 800,
+                  },
+                  value: 100,
+                },
+                opacity: {
+                  value: 1,
+                  random: true,
+                  anim: {
+                    enable: true,
+                    speed: 1,
+                    opacity_min: 0,
+                  },
+                },
+                shape: {
+                  type: "circle",
+                },
+                size: {
+                  random: true,
+                  value: 3,
+                  anim: {
+                    speed: 4,
+                    size_min: 0.3,
+                  },
+                },
               },
-              value: 100,
-            },
-            opacity: {
-              value: 1,
-              random: true,
-              anim: {
-                enable: true,
-                speed: 1,
-                opacity_min: 0,
-              },
-            },
-            shape: {
-              type: "circle",
-            },
-            size: {
-              random: true,
-              value: 3,
-              anim: {
-                speed: 4,
-                size_min: 0.3,
-              },
-            },
-          },
-          detectRetina: true,
-        }}
-      />
+              detectRetina: true,
+            }}
+          />
+        </>
+      )}
     </>
   );
 };

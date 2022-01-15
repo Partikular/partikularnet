@@ -3,7 +3,7 @@ import { Dispatch, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { setLinkBackgroundPosition } from "../../store/actionCreators";
+import { setLinkBackgroundPosition } from "../../store/content/actionCreators";
 
 interface NavLinkProps {
   icon: React.ReactElement;

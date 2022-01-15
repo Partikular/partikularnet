@@ -5,9 +5,8 @@ import styled, { css } from "styled-components";
 
 export const EditorContainer = styled.div`
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 80px 1fr auto;
   justify-content: center;
-  z-index: 10;
   width: 100%;
   height: 100%;
   background: white;
@@ -17,8 +16,10 @@ export const Canvas = styled.form`
   width: 740px;
   top: 180px;
   position: relative;
+  height: 200vh;
 `;
 
+/* 
 const StyledTextarea = styled.textarea`
   font-family: Roboto;
   font-size: 1.3125rem;
@@ -27,11 +28,11 @@ const StyledTextarea = styled.textarea`
   border: none;
   margin: 18px 0;
   width: 100%;
-`;
+`; */
 
 // Helper components
 
-const AutoSizeTextArea = React.forwardRef<
+/* const AutoSizeTextArea = React.forwardRef<
   HTMLTextAreaElement,
   GeneralComponentProps
 >(
@@ -79,29 +80,49 @@ const AutoSizeTextArea = React.forwardRef<
       </div>
     );
   }
-);
+); */
 
 // Content components
 
-export const ArticleTitle = styled.textarea`
+export const ArticleTitle = styled.h1`
   ${() => css`
     font-size: 2.626rem;
+    outline: none;
   `}
 `;
 
 interface GeneralComponentProps {
   onFocus: () => void;
   onChange: () => void;
+  onInput: () => void;
 }
 
 export const Paragraph = React.forwardRef<
-  HTMLTextAreaElement,
+  HTMLParagraphElement,
   GeneralComponentProps
 >(
   (
-    { onFocus, onChange }: GeneralComponentProps,
-    ref: React.ForwardedRef<HTMLTextAreaElement>
+    { onFocus, onChange, onInput }: GeneralComponentProps,
+    ref: React.ForwardedRef<HTMLParagraphElement>
   ): JSX.Element => {
-    return <AutoSizeTextArea onFocus={onFocus} onChange={onChange} ref={ref} />;
+    return (
+      <p
+        style={{
+          fontFamily: "Roboto",
+          fontSize: "1.3125rem",
+          resize: "none",
+          outline: "none",
+          border: "none",
+          margin: "18px 0",
+          width: "100%",
+        }}
+        onFocus={onFocus}
+        onChange={onChange}
+        // @ts-ignore
+        onInput={onInput}
+        ref={ref}
+        contentEditable="true"
+      />
+    );
   }
 );

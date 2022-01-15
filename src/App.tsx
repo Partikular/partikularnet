@@ -1,15 +1,23 @@
 import Pages from "./components/Pages";
-import { UserContext } from "./lib/context";
-import { useUserData } from "./lib/hooks";
 import { Toaster } from "react-hot-toast";
+import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { connect } from "react-redux";
+import { RootState } from "./store";
 
-export default function App() {
-  const userData = useUserData();
-
+const App = () => {
   return (
-    <UserContext.Provider value={userData}>
+    <>
       <Pages />
       <Toaster position="bottom-center" />
-    </UserContext.Provider>
+    </>
   );
-}
+};
+
+// pass todos list from redux as props.todosList
+export default compose(
+  connect((state: RootState) => ({
+    articles: state.firestore.data.articles,
+  })),
+  firestoreConnect(() => ["articles"])
+)(App) as any;

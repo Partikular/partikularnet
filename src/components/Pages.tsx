@@ -1,44 +1,45 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router";
 import styled from "styled-components";
-import { UserContext } from "../lib/context";
 import { PageTitle } from "./CommonStyledComponents";
 import Dashboard from "./dashboard/Dashboard";
 import LoginPage from "./LoginPage";
 import Nav from "./nav/Nav";
 import ActivityMenu from "./activity-menu/ActivityMenu";
 import Editor from "./editor/Editor";
+import { isEmpty, isLoaded } from "react-redux-firebase";
+import { RootState } from "../store";
+import { useSelector } from "react-redux";
+
+const routes = [
+  {
+    path: "/",
+    page: <Dashboard />,
+  },
+  {
+    path: "/artikelvyn",
+    page: <ArticleView />,
+  },
+  {
+    path: "/statistik",
+    page: <StatsView />,
+  },
+  {
+    path: "/meddelanden",
+    page: <Chat />,
+  },
+  {
+    path: "/installningar",
+    page: <Settings />,
+  },
+];
 
 const Pages = () => {
   const location = useLocation();
   const pathname = location.pathname;
-  const navigate = useNavigate();
 
-  const { user, uid, userData } = useContext(UserContext);
-
-  const routes = [
-    {
-      path: "/",
-      page: <Dashboard />,
-    },
-    {
-      path: "/artikelvyn",
-      page: <ArticleView />,
-    },
-    {
-      path: "/statistik",
-      page: <StatsView />,
-    },
-    {
-      path: "/meddelanden",
-      page: <Chat />,
-    },
-    {
-      path: "/installningar",
-      page: <Settings />,
-    },
-  ];
+  const auth = useSelector((state: RootState) => state.firebase.auth);
 
   useEffect(() => {
     let path;
@@ -56,14 +57,14 @@ const Pages = () => {
       path = "Artikelredigeraren";
     }
 
-    document.title = user
+    document.title = isLoaded(auth)
       ? `${path} | Partikularnet`
       : "Logga in på Partikularnet";
-  }, [pathname, user]);
+  }, [pathname, auth]);
 
   return (
     <>
-      {user ? (
+      {isLoaded(auth) && !isEmpty(auth) ? (
         <>
           {pathname === "/editor" ? (
             <Routes location={location} key={location.pathname}>
@@ -82,7 +83,11 @@ const Pages = () => {
                     </Routes>
                   </AnimatePresence>
                 </div>
-                <ActivityMenu user={user} uid={uid} userData={userData} />
+                <ActivityMenu
+                  user={auth}
+                  uid={auth.uid}
+                  userData={auth.providerData}
+                />
               </RoutesWrapper>
             </AppWrapper>
           )}
@@ -172,7 +177,11 @@ function ArticleView() {
       variants={pageTransitions}
     >
       <PageTitle>Artikelvyn</PageTitle>
-      <button onClick={() => navigate("/editor")}>Create article</button>
+      <button
+        onClick={() => navigate("/editor?articleId=iyNXGAEWIGhgV1xRM3Me")}
+      >
+        Skapa en artikel
+      </button>
     </motion.div>
   );
 }
