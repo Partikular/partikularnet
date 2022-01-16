@@ -18,7 +18,7 @@ const Container = styled.div`
   background: white;
   height: 80px;
   z-index: 1;
-  box-shadow: 0 5px 20px 1px #e1efee;
+  box-shadow: 0 5px 10px 0px #9c9c9c25;
   display: flex;
   align-items: center;
 `;

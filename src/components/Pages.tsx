@@ -11,6 +11,7 @@ import Editor from "./editor/Editor";
 import { isEmpty, isLoaded } from "react-redux-firebase";
 import { RootState } from "../store";
 import { useSelector } from "react-redux";
+import ArticleView from "./article-view/ArticleView";
 
 const routes = [
   {
@@ -162,26 +163,6 @@ function Settings() {
       variants={pageTransitions}
     >
       <PageTitle>Inställningar</PageTitle>
-    </motion.div>
-  );
-}
-
-function ArticleView() {
-  const navigate = useNavigate();
-
-  return (
-    <motion.div
-      initial="initial"
-      exit="out"
-      animate="in"
-      variants={pageTransitions}
-    >
-      <PageTitle>Artikelvyn</PageTitle>
-      <button
-        onClick={() => navigate("/editor?articleId=iyNXGAEWIGhgV1xRM3Me")}
-      >
-        Skapa en artikel
-      </button>
     </motion.div>
   );
 }

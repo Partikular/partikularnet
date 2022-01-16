@@ -27,11 +27,13 @@ const Document: React.FC<DocumentProps> = ({ article, articleId }) => {
   const uid = useSelector((state: RootState) => state.firebase.auth.uid);
 
   const [activeElement, setActiveElement] = useState<number>(0);
+
+  const titleRef = useRef<any>();
   const elementsRef = useRef<any[]>([]);
 
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
-  const [title, setTitle] = useState<string>("");
+  const [title, setTitle] = useState<string>(article ? article.title : "");
   const [data, setData] = useState<ArticleContentItem[]>(
     article
       ? article.content.map((item: ArticleContentItem) =>
@@ -160,14 +162,20 @@ const Document: React.FC<DocumentProps> = ({ article, articleId }) => {
     setIsSaving(false);
   };
 
-  // Assign values to all data when loaded in
   useEffect(() => {
-    if (elementsRef && data) {
-      data.forEach((item, index) => {
+    if (article && "title" in article && "content" in article) {
+      setTitle(article.title);
+      titleRef.current.innerText = article.title;
+
+      const content = article.content.map((item: ArticleContentItem) =>
+        Object.assign({}, item)
+      );
+      content.forEach((item: any, index: number) => {
         elementsRef.current[index].innerText = item.value;
       });
+      setData(content);
     }
-  }, []);
+  }, [article]);
 
   return (
     <EditorContainer>
@@ -183,6 +191,7 @@ const Document: React.FC<DocumentProps> = ({ article, articleId }) => {
       >
         {/* @ts-ignore */}
         <ArticleTitle
+          ref={titleRef}
           contentEditable="true"
           onInput={handleTitle}
           placeholder="Skriv din titel..."
