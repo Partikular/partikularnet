@@ -23,18 +23,18 @@ const NavLinks = () => {
       path: "/artikelvyn",
       icon: <Article size={50} />,
     },
-    {
+    /*     {
       path: "/statistik",
       icon: <Stats size={50} />,
     },
     {
       path: "/meddelanden",
       icon: <Chat size={50} />,
-    },
-    {
+    }, */
+    /*     {
       path: "/installningar",
       icon: <Settings size={50} />,
-    },
+    }, */
   ];
   return (
     <LinksWrapper>

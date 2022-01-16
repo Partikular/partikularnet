@@ -100,7 +100,7 @@ const ArticleListitem: React.FC<{ article: any }> = ({ article }) => {
           <ArticleSection caption="Titel" info={article.title} />
         </div>
         <ArticleSection caption="Deadline" info={parsedDeadline()} />
-        <div style={{ marginLeft: "auto" }}>dadwa</div>
+        <div style={{ marginLeft: "auto" }}></div>
       </Container>
     </div>
   );

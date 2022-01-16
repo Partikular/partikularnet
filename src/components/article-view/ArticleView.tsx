@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router";
 import { pageTransitions } from "../../lib/transitions";
 import { Margin } from "../common";
 import { PageTitle } from "../CommonStyledComponents";

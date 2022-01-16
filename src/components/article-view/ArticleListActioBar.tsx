@@ -5,7 +5,9 @@ import { useFirestore } from "react-redux-firebase";
 import { db } from "../../lib/firebase";
 import { RootState } from "../../store";
 import { useSelector } from "react-redux";
-import Modal from "../Modal";
+import Button from "../../Button";
+import { DocumentAdd } from "@styled-icons/heroicons-outline/DocumentAdd";
+import { Margin } from "../common";
 
 const ArticleListActionBar = () => {
   const { uid, displayName } = useSelector(
@@ -47,7 +49,11 @@ const ArticleListActionBar = () => {
         <TopCover />
         <ActionsContainer>
           <h2 style={{ margin: 0 }}>Artiklar</h2>
-          <button onClick={createNewArticle}>Ny artikel</button>
+          <div style={{ marginLeft: "auto" }}>
+            <Button onClick={createNewArticle}>
+              <DocumentAdd size={30} /> <Margin x={5} /> Ny artikel
+            </Button>
+          </div>
         </ActionsContainer>
       </Container>
     </Wrapper>
