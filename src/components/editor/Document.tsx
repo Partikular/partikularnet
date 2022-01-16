@@ -56,7 +56,6 @@ const Document: React.FC<DocumentProps> = ({ article, articleId }) => {
 
     // Set the new data to match the element value
     setData(newData);
-    console.log(data);
   };
 
   const reassignTextAfterNewEl = (e: React.KeyboardEvent) => {

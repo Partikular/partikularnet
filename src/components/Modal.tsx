@@ -6,13 +6,6 @@ import styled from "styled-components";
 const Modal: React.FC = ({ children }) => {
   const modalRef = useRef<any>();
 
-  console.log(modalRef);
-
-  // @ts-ignore
-  console.log(modalRef.current?.getBoundingClientRect().top);
-
-  console.log();
-
   return (
     <ModalWrapper ref={modalRef}>
       <ModalContainer>

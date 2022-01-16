@@ -6,7 +6,6 @@ import { PageTitle } from "../CommonStyledComponents";
 import ArticleList from "./ArticleList";
 
 const ArticleView = () => {
-  const navigate = useNavigate();
   return (
     <motion.div
       initial="initial"

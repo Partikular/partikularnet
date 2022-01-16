@@ -41,10 +41,8 @@ const Badges = () => {
   const mouseMoveHandler = (e: any) => {
     const rect = badgesRef.current.getBoundingClientRect();
     const x = rect.right - e.clientX;
-    console.log(x);
 
     // Scroll the element
-    console.log(badgesRef.current.scrollLeft);
     badgesRef.current.scrollLeft = x;
   };
 
